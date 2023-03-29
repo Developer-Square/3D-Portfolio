@@ -8,25 +8,23 @@ const Computers = ({ isMobile }: { isMobile: boolean }) => {
   const computer = useGLTF('./dual_nichirin_cleavers/scene.gltf');
 
   return (
-    <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
-      <mesh>
-        <hemisphereLight intensity={0.15} groundColor='black' />
-        <spotLight
-          position={[-20, 50, 10]}
-          angle={0.12}
-          penumbra={1}
-          intensity={2.5}
-          shadow-mapSize={1024}
-        />
-        <pointLight intensity={1} />
-        <primitive
-          object={computer.scene}
-          scale={isMobile ? 2.5 : 4.7}
-          position={isMobile ? [0, -3.25, 1] : [0, -7.75, -1.5]}
-          rotation={[-0.01, -0.2, -0.1]}
-        />
-      </mesh>
-    </Float>
+    <mesh>
+      <hemisphereLight intensity={0.15} groundColor='black' />
+      <spotLight
+        position={[-20, 50, 10]}
+        angle={0.12}
+        penumbra={1}
+        intensity={2.5}
+        shadow-mapSize={1024}
+      />
+      <pointLight intensity={1} />
+      <primitive
+        object={computer.scene}
+        scale={isMobile ? 2.5 : 4.7}
+        position={isMobile ? [0, -3.25, 1] : [0, -7.75, -1.5]}
+        rotation={[-0.01, -0.2, -0.1]}
+      />
+    </mesh>
   );
 };
 
@@ -62,6 +60,7 @@ const ComputerCanvas = () => {
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls
           enableZoom={false}
+          autoRotate
           maxPolarAngle={Math.PI / 2}
           minPolarAngle={Math.PI / 2}
         />
