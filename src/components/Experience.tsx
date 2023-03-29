@@ -2,7 +2,7 @@ import {
   VerticalTimeline,
   VerticalTimelineElement,
 } from 'react-vertical-timeline-component';
-import { m } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 import 'react-vertical-timeline-component/style.min.css';
 import { styles } from '../styles';
@@ -71,10 +71,10 @@ const ExperienceCard = ({
 const Experience = () => {
   return (
     <>
-      <m.div variants={textVariant(0)}>
+      <motion.div variants={textVariant(0)}>
         <p className={styles.sectionSubText}>What I have done so far</p>
         <h2 className={styles.sectionHeadText}>Work Experience.</h2>
-      </m.div>
+      </motion.div>
 
       <div className='mt-20 flex flex-col'>
         <VerticalTimeline>
