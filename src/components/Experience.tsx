@@ -8,6 +8,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import { styles } from '../styles';
 import { experiences } from '../constants';
 import { textVariant } from '../utils/motion';
+import { SectionWrapper } from '../hoc';
 
 interface IExperienceCardProps {
   title: string;
@@ -35,7 +36,7 @@ const ExperienceCard = ({
         background: iconBg,
       }}
       icon={
-        <div>
+        <div className='flex justify-center items-center w-full h-full bg-slate-100 rounded-full'>
           <img
             src={icon}
             alt={company_name}
@@ -86,4 +87,4 @@ const Experience = () => {
   );
 };
 
-export default Experience;
+export default SectionWrapper(Experience, 'work');
