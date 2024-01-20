@@ -1,10 +1,37 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { useQuery } from '@apollo/client';
 
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas';
+import { INTRO_SECTION_QUERY } from '../graphql';
+
+interface IntroSection {
+  headerTitle: string;
+  heroTitle: string;
+  heroImage: {
+    url: string;
+  };
+  tagline: string;
+}
 
 const Hero = () => {
+  const {
+    loading,
+    error,
+    data: { introSection },
+  } = useQuery(INTRO_SECTION_QUERY, {
+    variables: { id: 'clrm7gz9sbiof0blcip6ppapy' },
+  });
+  const [intro, setIntro] = useState<IntroSection>();
+
+  useEffect(() => {
+    if (!loading && error === undefined) {
+      setIntro(introSection);
+    }
+  }, []);
+  console.log(intro);
+
   return (
     <section className='relative w-full h-screen mx-auto'>
       <div
