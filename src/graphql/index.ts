@@ -1,11 +1,11 @@
 import INTRO_SECTION_QUERY from './intro';
 import ABOUT_INFO_QUERY from './about';
-import JOBS_QUERY from './jobs';
+import WORK_EXPERIENCE_QUERY from './jobs';
 import PORTFOLIO_IMAGES_QUERY from './portfolio';
 
 export {
   INTRO_SECTION_QUERY,
   ABOUT_INFO_QUERY,
-  JOBS_QUERY,
+  WORK_EXPERIENCE_QUERY,
   PORTFOLIO_IMAGES_QUERY,
 };

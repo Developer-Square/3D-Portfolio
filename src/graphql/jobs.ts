@@ -1,23 +1,18 @@
 import { gql } from '@apollo/client';
 
-const JOBS_QUERY = gql`
-  query {
-    portfolioJobs(orderBy: createdAt_DESC) {
-      id
-      netlifyLink
-      githubLink
-      title
-      description
-      solution
-      languages
-      usage
-      noteableFeatures
-      jobImage {
-        id
+const WORK_EXPERIENCE_QUERY = gql`
+  query FetchWorkExperience($id: ID!) {
+    workExperience(where: { id: $id }) {
+      workTitle
+      company
+      timeAtCompany
+      companyIcon {
         url
       }
+      workDescription
+      iconBg
     }
   }
 `;
 
-export default JOBS_QUERY;
+export default WORK_EXPERIENCE_QUERY;
