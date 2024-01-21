@@ -19,7 +19,8 @@ module.exports = {
         xs: '450px',
       },
       backgroundImage: {
-        'hero-pattern': "url('/src/assets/herobg.png')",
+        'hero-pattern':
+          "url('https://media.graphassets.com/qUT78pV4SGKtW8jR2Vjf')",
       },
     },
   },
