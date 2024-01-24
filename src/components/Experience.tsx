@@ -21,11 +21,7 @@ interface WorkExprience {
     url: string;
   };
   workDescription: string[];
-  iconBg: string[];
-}
-
-interface IExperienceCardProps extends WorkExprience {
-  index: number;
+  iconBg: string;
 }
 
 const ExperienceCard = ({
@@ -35,21 +31,20 @@ const ExperienceCard = ({
   companyIcon,
   workDescription,
   iconBg,
-  index,
-}: IExperienceCardProps) => {
+}: WorkExprience) => {
   return (
     <VerticalTimelineElement
       contentStyle={{ background: '#1d1836', color: '#fff' }}
       contentArrowStyle={{ borderRight: '7px solid #232631' }}
       date={timeAtCompany}
       iconSytle={{
-        background: iconBg[index],
+        background: iconBg,
       }}
       icon={
         <div className='flex justify-center items-center w-full h-full bg-slate-100 rounded-full'>
           <img
-            src={companyIcon.url}
-            alt={company}
+            src={companyIcon?.url || ''}
+            alt={companyIcon?.url ? company : ''}
             className='w-[60%] h-[60%] object-contain'
           />
         </div>
@@ -79,15 +74,29 @@ const ExperienceCard = ({
 };
 
 const Experience = () => {
+  const listOfJobIDs = [
+    'clrnlt2c4moo60blc3uus2b5m',
+    'clrnn5en1myj60bl9zetk81rz',
+    'clrrrefma1fo70bl6cg238zpy',
+    'clrrrn6xa1hxg0bl6i2figudq',
+    'clrrsjitr1rta0blb8ryxbhr0',
+  ];
+
+  // This filter is used to filter the `WORK_EXPERIENCE_QUERY` to get back
+  // a list of jobs
+  const whereFilter = { AND: [{ id_in: listOfJobIDs }] };
   const { loading, error, data } = useQuery(WORK_EXPERIENCE_QUERY, {
-    variables: { id: 'clrnlt2c4moo60blc3uus2b5m' },
+    variables: { where: whereFilter },
   });
-  const [workExperience, setWorkExperience] = useState<WorkExprience[]>();
+  const [workExperience, setWorkExperience] = useState<any[]>([]);
 
   // TODO: Add some error handling.
   useEffect(() => {
     if (!loading && error === undefined) {
-      setWorkExperience(data.workExperience);
+      const {
+        workExperiencesConnection: { edges },
+      } = data;
+      setWorkExperience(edges);
     }
   }, [loading, error]);
   console.log(workExperience);
@@ -102,7 +111,7 @@ const Experience = () => {
         <VerticalTimeline>
           {workExperience?.length ? (
             workExperience.map((experience, index) => (
-              <ExperienceCard key={index} index={index} {...experience} />
+              <ExperienceCard key={index} {...experience.node} />
             ))
           ) : (
             <></>
