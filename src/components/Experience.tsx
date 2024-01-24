@@ -99,7 +99,6 @@ const Experience = () => {
       setWorkExperience(edges);
     }
   }, [loading, error]);
-  console.log(workExperience);
   return (
     <>
       <motion.div variants={textVariant(0)}>
