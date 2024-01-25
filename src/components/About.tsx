@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Tilt from 'react-tilt';
 import { motion } from 'framer-motion';
 
@@ -6,11 +6,21 @@ import { styles } from '../styles';
 import { services } from '../constants';
 import { fadeIn, textVariant } from '../utils/motion';
 import { SectionWrapper } from '../hoc';
+import { useQuery } from '@apollo/client';
+import { ABOUT_INFO_QUERY } from '../graphql';
 
 interface IServiceCardProps {
   title: string;
   icon: string;
   index: number;
+}
+
+interface AboutInfo {
+  info: string;
+  mainSkills: string[];
+  skillIcons: {
+    url: string;
+  }[];
 }
 
 const ServiceCard = ({ title, icon, index }: IServiceCardProps) => {
@@ -40,6 +50,17 @@ const ServiceCard = ({ title, icon, index }: IServiceCardProps) => {
 };
 
 const About = () => {
+  const { loading, error, data } = useQuery(ABOUT_INFO_QUERY, {
+    variables: { id: 'clrnj7wbhmi6c0blcmwioks9u' },
+  });
+  const [aboutInfo, setAboutInfo] = useState<AboutInfo>();
+
+  // TODO: Add some error handling.
+  useEffect(() => {
+    if (!loading && error === undefined) {
+      setAboutInfo(data.aboutInfo);
+    }
+  }, [loading, error]);
   return (
     <>
       <motion.div variants={textVariant(0)}>
@@ -49,18 +70,19 @@ const About = () => {
 
       <motion.p
         variants={fadeIn('', '', 0.1, 1)}
-        className='mt-4 text-secondary text-[17px] max-w-3xl leading-[30px]'
+        className='mt-4 text-secondary text-[19px] max-w-3xl leading-[30px]'
       >
-        I specialize in creating top-notch e-commerce projects, web3/NFT
-        websites, and other custom projects. I'm a full-stack developer with
-        expertise in ReactJS, NodeJS, Solidity, Blockchain development, and
-        MongoDB. Helping businesses stay ahead in the game through innovative
-        technology solutions is my thing.
+        {aboutInfo?.info}
       </motion.p>
 
       <div className='mt-20 flex flex-wrap gap-10'>
-        {services.map((service, index) => (
-          <ServiceCard key={service.title} index={index} {...service} />
+        {aboutInfo?.mainSkills.map((skill, index) => (
+          <ServiceCard
+            key={skill}
+            index={index}
+            title={skill}
+            icon={aboutInfo.skillIcons[index].url}
+          />
         ))}
       </div>
     </>

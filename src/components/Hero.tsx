@@ -1,10 +1,14 @@
-import React from 'react';
 import { motion } from 'framer-motion';
 
 import { styles } from '../styles';
 import { ComputersCanvas } from './canvas';
 
-const Hero = () => {
+interface IHeroProps {
+  heroTitle: string;
+  tagline: string;
+}
+
+const Hero = ({ heroTitle, tagline }: IHeroProps) => {
   return (
     <section className='relative w-full h-screen mx-auto'>
       <div
@@ -17,12 +21,12 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className='text-[#915eff]'>Ryan</span>
+            {heroTitle.slice(0, 8)}
+            <span className='text-[#915eff]'>{heroTitle.slice(8, 12)}</span>
           </h1>
           <p className={`${styles.heroSubText} mt-2 text-white-100`}>
-            I develop stunning NFT projects and{' '}
-            <br className='sm:block hidden' /> well designed E-commerce web
-            applications.
+            {tagline.slice(0, 35)}
+            <br className='sm:block hidden' /> {tagline.slice(35, 80)}
           </p>
         </div>
       </div>

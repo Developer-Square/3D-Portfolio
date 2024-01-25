@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { styles } from '../styles';
 import { navLinks } from '../constants';
 import { logoColor, menu, close } from '../assets';
 
-const Navbar = () => {
+const Navbar = ({ headerTitle }: { headerTitle: string }) => {
   const [active, setActive] = useState('');
   const [toggle, setToggle] = useState(false);
 
@@ -24,8 +24,8 @@ const Navbar = () => {
         >
           <img src={logoColor} alt='logo' className='w-9 h-9 object-contain' />
           <p className='text-white text-[18px] font-bold cursor-pointer flex'>
-            Ryan &nbsp;
-            <span className='sm:block hidden'>| Web3 | Ecommerce</span>
+            {headerTitle.slice(0, 4)} &nbsp;
+            <span className='sm:block hidden'>{headerTitle.slice(4, 20)}</span>
           </p>
         </Link>
 
