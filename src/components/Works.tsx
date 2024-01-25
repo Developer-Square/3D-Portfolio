@@ -31,7 +31,6 @@ const ProjectCard = ({
   githubLink,
   projectPic,
 }: IProjectCardProps) => {
-  console.log(projectPic);
   return (
     <motion.div variants={fadeIn('up', 'spring', index * 0.5, 0.75)}>
       <Tilt
@@ -100,7 +99,6 @@ const Works = () => {
       setProjects(edges);
     }
   }, [loading, error]);
-  console.log(projects);
   return (
     <>
       <motion.div variants={textVariant(0)}>
